@@ -1,50 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public class CharecterMovement : MonoBehaviour
 {
-    [Header("Component")]
-    [SerializeField] private CharacterController characterController;
+    [SerializeField] private float speed;
+    [SerializeField] private float  jumpforce;
+    
+    float X, Z;
+    bool jump = false;
 
-    [Header("Values")]
-    public float moveSpeed;
-    public float JumpHeight;
-    public float turnSmooth;
+    Rigidbody rb;
+    Animator anim;
+    Vector3 movement;
 
-    float turnSmoothVelocity;
-    float horizontal, vertical;
-    float yVelocity;
-    float gravity = -9.81f;
-
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        //anim = GetComponentInChildren<Animator>();
+    }
     private void Update()
     {
-        MyInput();
+        X = Input.GetAxis("Horizontal");
+        Z = Input.GetAxis("Vertical");
 
-        if (characterController.isGrounded)
+        //anim.SetFloat("Speed", (Mathf.Abs(X) + Mathf.Abs(Z)));
+
+        if (Input.GetKeyDown(KeyCode.Space) && jump == true)
         {
-            yVelocity = -2f;
-
-            if (Input.GetKeyDown(KeyCode.Space)) yVelocity = Mathf.Sqrt(JumpHeight * -2f * gravity);
+            rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
+            jump = false;
         }
-        else yVelocity += gravity * Time.deltaTime;
-
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
-        direction.y = yVelocity;
-
-        if (direction.magnitude > 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,targetAngle,ref turnSmoothVelocity, turnSmooth);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            characterController.Move(direction * moveSpeed * Time.deltaTime);
-        }
+        movement = Camera.main.transform.forward * Z + Camera.main.transform.right * X;
+        movement.y = 0;
     }
-
-    private void MyInput()
+    private void FixedUpdate()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        if (movement == Vector3.zero) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(movement);
+
+        targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
+
+        rb.velocity = new Vector3(movement.normalized.x * speed, rb.velocity.y, movement.normalized.z * speed);
+
+        rb.MoveRotation(targetRotation);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            jump = true;
+        }
     }
 }
