@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    //Variables
-    public float sensX, sensY;
-    float xRotation, yRotation;
-    public Transform orientation;
+    private const float YMin = -50f;
+    private const float YMax = 50f;
+
+    public Transform lookAt;
+    public Transform Player;
+    public float distance;
+    public float sensivity;
+
+    private float currentX = 0;
+    private float currentY = 25;
 
     private void Start()
     {
@@ -15,16 +21,17 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        currentX += Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
+        currentY += Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
 
-        yRotation += mouseX;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        currentY = Mathf.Clamp(currentY, YMin, YMax);
 
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0,yRotation, 0);
+        Vector3 Direction = new Vector3(0,0,-distance);
+        Quaternion rotation = Quaternion.Euler(currentY,currentX,0f);
+        transform.position = lookAt.position + rotation * Direction;
+
+        transform.LookAt(lookAt.position);
     }
 }
