@@ -5,10 +5,12 @@ using UnityEngine;
 public class CharecterMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float  jumpforce;
-    
+    [SerializeField] private float SlowSpeed;
+    [SerializeField] private float jumpforce;
+
     float X, Z;
     bool jump = false;
+    float idleTime;
 
     Rigidbody rb;
     Animator anim;
@@ -18,22 +20,23 @@ public class CharecterMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        //anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
         X = Input.GetAxis("Horizontal");
         Z = Input.GetAxis("Vertical");
 
-        //anim.SetFloat("Speed", (Mathf.Abs(X) + Mathf.Abs(Z)));
+        Animations();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jump == true)
-        {
-            rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
-            jump = false;
-        }
+        if (Input.GetKeyDown(KeyCode.Space) && jump == true) Jump();
+
+        if (idleTime >= 13) idleTime = 0;
+
         movement = Camera.main.transform.forward * Z + Camera.main.transform.right * X;
         movement.y = 0;
+
+        SlowWalk();
     }
     private void FixedUpdate()
     {
@@ -52,6 +55,27 @@ public class CharecterMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             jump = true;
+            anim.SetBool("jump", false);
         }
+    }
+
+    public void Animations()
+    {
+        anim.SetFloat("speed", rb.velocity.magnitude);
+        idleTime += Time.deltaTime;
+        anim.SetFloat("idleTime", idleTime);
+    }
+
+    public void Jump()
+    {
+        rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
+        jump = false;
+        anim.SetBool("jump", true);
+    }
+
+    public void SlowWalk()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Sspeed", true); speed = SlowSpeed; }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Sspeed", false); speed = 2f; }
     }
 }
