@@ -87,7 +87,7 @@ public class CharecterMovement : MonoBehaviour
     private void FastRun()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Shift", true); StartCoroutine(DelaySpeed(10,.2f)); }
-        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Shift", false); StartCoroutine(DelaySpeed(1.5f,.5f)); }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Shift", false); StartCoroutine(DelaySpeed(1.5f,.3f)); }
     }
 
     private void DancAnim()
