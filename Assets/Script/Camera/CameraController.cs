@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     public Transform lookAt;
     public Transform Player;
     public float distance;
-    public float sensivity;
+    public float sensitivity;
 
     private float currentX = 0;
     private float currentY = 25;
@@ -23,14 +23,12 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        currentX += Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
-        currentY += Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
-
+        currentX += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        currentY += Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
         currentY = Mathf.Clamp(currentY, YMin, YMax);
-
-        Vector3 Direction = new Vector3(0,0,-distance);
-        Quaternion rotation = Quaternion.Euler(currentY,currentX,0f);
-        transform.position = lookAt.position + rotation * Direction;
+        Quaternion rotation = Quaternion.Euler(currentY, currentX, 0f);
+        Vector3 direction = new Vector3(0, 0, -distance);
+        transform.position = lookAt.position + rotation * direction;
 
         transform.LookAt(lookAt.position);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CharecterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField, Tooltip("Move speed")] private float speed;
     [SerializeField] private float SlowSpeed;
     [SerializeField] private float jumpforce;
 
@@ -24,6 +24,8 @@ public class CharecterMovement : MonoBehaviour
     }
     private void Update()
     {
+        DancAnim();
+
         X = Input.GetAxis("Horizontal");
         Z = Input.GetAxis("Vertical");
 
@@ -37,6 +39,8 @@ public class CharecterMovement : MonoBehaviour
         movement.y = 0;
 
         SlowWalk();
+
+        FastRun();
     }
     private void FixedUpdate()
     {
@@ -50,6 +54,7 @@ public class CharecterMovement : MonoBehaviour
 
         rb.MoveRotation(targetRotation);
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -59,23 +64,45 @@ public class CharecterMovement : MonoBehaviour
         }
     }
 
-    public void Animations()
+    private void Animations()
     {
         anim.SetFloat("speed", rb.velocity.magnitude);
         idleTime += Time.deltaTime;
         anim.SetFloat("idleTime", idleTime);
     }
 
-    public void Jump()
+    private void Jump()
     {
         rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
         jump = false;
         anim.SetBool("jump", true);
     }
 
-    public void SlowWalk()
+    private void SlowWalk()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Sspeed", true); speed = SlowSpeed; }
-        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Sspeed", false); speed = 2f; }
+        if (Input.GetKeyDown(KeyCode.C)) { anim.SetBool("Sspeed", true); speed = SlowSpeed; }
+        else if (Input.GetKeyUp(KeyCode.C)) { anim.SetBool("Sspeed", false); speed = 2f; }
+    }
+
+    private void FastRun()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Shift", true); StartCoroutine(DelaySpeed(10,.2f)); }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Shift", false); StartCoroutine(DelaySpeed(1.5f,.5f)); }
+    }
+
+    private void DancAnim()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { anim.SetBool("Dance", true); anim.SetFloat("Number", 1); };
+        if (Input.GetKeyUp(KeyCode.Alpha1)) anim.SetBool("Dance", false);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { anim.SetBool("Dance", true); anim.SetFloat("Number", 2); };
+        if (Input.GetKeyUp(KeyCode.Alpha2)) anim.SetBool("Dance", false);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { anim.SetBool("Dance", true); anim.SetFloat("Number", 3); };
+        if (Input.GetKeyUp(KeyCode.Alpha3)) anim.SetBool("Dance", false);
+    }
+
+    IEnumerator DelaySpeed(float _speed,float time)
+    {
+        yield return new WaitForSeconds(time);
+        speed = _speed;
     }
 }
