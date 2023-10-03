@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class ThrdPersonCam : MonoBehaviour
 {
     private const float YMin = -50f;
     private const float YMax = 50f;
@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public Transform Player;
     public float distance;
     public float sensitivity;
+    public GameObject FirstPersonCamera;
 
     private float currentX = 0;
     private float currentY = 25;
@@ -19,6 +20,15 @@ public class CameraController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            FirstPersonCamera.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void LateUpdate()

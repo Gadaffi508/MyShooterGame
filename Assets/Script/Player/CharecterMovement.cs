@@ -7,6 +7,7 @@ public class CharecterMovement : MonoBehaviour
     [SerializeField, Tooltip("Move speed")] private float speed;
     [SerializeField] private float SlowSpeed;
     [SerializeField] private float jumpforce;
+    [SerializeField] private GameObject ThirdPersonCam;
 
     float X, Z;
     bool jump = false;
@@ -15,6 +16,8 @@ public class CharecterMovement : MonoBehaviour
     Rigidbody rb;
     Animator anim;
     Vector3 movement;
+
+    private bool Cam›sActive() => ThirdPersonCam.activeSelf;
 
     private void Start()
     {
@@ -52,7 +55,7 @@ public class CharecterMovement : MonoBehaviour
 
         rb.velocity = new Vector3(movement.normalized.x * speed, rb.velocity.y, movement.normalized.z * speed);
 
-        rb.MoveRotation(targetRotation);
+        if(Cam›sActive()) rb.MoveRotation(targetRotation);
     }
 
     private void OnCollisionEnter(Collision collision)
