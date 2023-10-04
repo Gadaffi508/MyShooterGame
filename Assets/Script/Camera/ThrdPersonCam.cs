@@ -7,11 +7,11 @@ public class ThrdPersonCam : MonoBehaviour
     private const float YMin = -50f;
     private const float YMax = 50f;
 
+    public GameObject FirstsPersonCam;
     public Transform lookAt;
     public Transform Player;
     public float distance;
     public float sensitivity;
-    public GameObject FirstPersonCamera;
 
     private float currentX = 0;
     private float currentY = 25;
@@ -24,9 +24,9 @@ public class ThrdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
-            FirstPersonCamera.SetActive(true);
+            FirstsPersonCam.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }

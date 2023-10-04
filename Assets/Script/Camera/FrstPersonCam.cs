@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class FrstPersonCam : MonoBehaviour
 {
-    public GameObject ThirdPersonCamera;
+    public GameObject ThirdPersonCam;
     public Transform Player;
     public float mouseSensivity = 100;
 
-    float cameraVeticalRotation;
+    float cameraVerticalRotation;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
-            ThirdPersonCamera.SetActive(true);
+            ThirdPersonCam.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }
@@ -31,9 +24,9 @@ public class FrstPersonCam : MonoBehaviour
         float InputX = Input.GetAxis("Mouse X") * mouseSensivity * Time.deltaTime;
         float InputY = Input.GetAxis("Mouse Y") * mouseSensivity * Time.deltaTime;
 
-        cameraVeticalRotation -= InputY;
-        cameraVeticalRotation = Mathf.Clamp(cameraVeticalRotation, -60f, 80f);
-        transform.localEulerAngles = Vector3.right * cameraVeticalRotation;
+        cameraVerticalRotation -= InputY;
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -60f,80f);
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 
         Player.Rotate(Vector3.up * InputX);
     }
