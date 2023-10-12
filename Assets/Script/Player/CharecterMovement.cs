@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CharecterMovement : MonoBehaviour
 {
-    [SerializeField, Tooltip("Move speed")] private float speed;
+    public float speed;
     [SerializeField] private float SlowSpeed;
     [SerializeField] private float jumpforce;
     [SerializeField] private GameObject ThirdPersonCam;
