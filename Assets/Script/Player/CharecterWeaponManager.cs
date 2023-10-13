@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CharecterWeaponManager : MonoBehaviour
 {
-    [SerializeField] private KeyCode SlowModKey;
-    [SerializeField] private float slowTimeScale;
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
     [SerializeField] private float handAttackLength;
+    [SerializeField] private KeyCode SlowModKey;
+    [SerializeField] private float SlowTimeScale;
 
-    float startFixedTimeStep;
     bool open;
+    float startFixedTimeStep;
     float standartspeed;
 
     Animator anim;
@@ -30,8 +30,8 @@ public class CharecterWeaponManager : MonoBehaviour
         if (Input.GetKeyDown(SlowModKey))
         {
             open = !open;
-            if(open) setTimeScale(slowTimeScale);
-            else setTimeScale(1);
+            if (open) SetTimeScale(SlowTimeScale);
+            else SetTimeScale(1);
         }
 
         if (Input.GetMouseButton(0))
@@ -41,10 +41,10 @@ public class CharecterWeaponManager : MonoBehaviour
         }
     }
 
-    private void setTimeScale(float timeScale)
+    private void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;
-        Time.fixedDeltaTime =timeScale * startFixedTimeStep;
+        Time.fixedDeltaTime = timeScale * startFixedTimeStep;
     }
 
     public void AttackAnimFunc()

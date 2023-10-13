@@ -1891,11 +1891,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77b0b3029de6d44e9b86ae266b08a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlowModKey: 9
-  slowTimeScale: 0.2
   leftHand: {fileID: 546144182}
   rightHand: {fileID: 588044730}
   handAttackLength: 5
+  SlowModKey: 9
+  SlowTimeScale: 0.2
 --- !u!4 &922944786335082867
 Transform:
   m_ObjectHideFlags: 0
