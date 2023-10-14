@@ -5,6 +5,7 @@ using UnityEngine;
 public class FrstPersonCam : MonoBehaviour
 {
     public GameObject ThirdPersonCam;
+    public GameObject CursorI;
     public Transform Player;
     public float mouseSensivity = 100;
 
@@ -15,6 +16,7 @@ public class FrstPersonCam : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             ThirdPersonCam.SetActive(true);
+            CursorI.SetActive(false);
             this.gameObject.SetActive(false);
         }
     }

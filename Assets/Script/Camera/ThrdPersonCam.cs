@@ -8,6 +8,7 @@ public class ThrdPersonCam : MonoBehaviour
     private const float YMax = 50f;
 
     public GameObject FirstsPersonCam;
+    public GameObject CursorI;
     public Transform lookAt;
     public Transform Player;
     public float distance;
@@ -27,6 +28,7 @@ public class ThrdPersonCam : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             FirstsPersonCam.SetActive(true);
+            CursorI.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }

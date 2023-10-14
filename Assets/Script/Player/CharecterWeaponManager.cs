@@ -36,7 +36,7 @@ public class CharecterWeaponManager : MonoBehaviour
             else SetTimeScale(1);
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             anim.SetTrigger("MagicA");
             charecterMovement.speed = 0;
@@ -73,6 +73,20 @@ public class CharecterWeaponManager : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Attack");
+        //-----Line is Active
+        leftHandLineRenderer.enabled = true;
+        rightHandLineRenderer.enabled = true;
+        //-----Left Hand
+        leftHandLineRenderer.SetPosition(0,leftHand.position);
+        leftHandLineRenderer.SetPosition(1,HandPos(leftHand));
+        //-----Right Hand
+        rightHandLineRenderer.SetPosition(0, rightHand.position);
+        rightHandLineRenderer.SetPosition(1, HandPos(rightHand));
+    }
+
+    public void AfterAttack()
+    {
+        leftHandLineRenderer.enabled = false;
+        rightHandLineRenderer.enabled = false;
     }
 }
