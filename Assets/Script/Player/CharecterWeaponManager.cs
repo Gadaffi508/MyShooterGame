@@ -5,7 +5,9 @@ using UnityEngine;
 public class CharecterWeaponManager : MonoBehaviour
 {
     [SerializeField] private Transform leftHand;
+    [SerializeField] private LineRenderer leftHandLineRenderer;
     [SerializeField] private Transform rightHand;
+    [SerializeField] private LineRenderer rightHandLineRenderer;
     [SerializeField] private float handAttackLength;
     [SerializeField] private KeyCode SlowModKey;
     [SerializeField] private float SlowTimeScale;
