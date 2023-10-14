@@ -68,4 +68,9 @@ public class CharecterWeaponManager : MonoBehaviour
         Vector3 _offset = handForward * handAttackLength;
         return handP + _offset;
     }
+
+    public void Attack()
+    {
+        Debug.Log("Attack");
+    }
 }
