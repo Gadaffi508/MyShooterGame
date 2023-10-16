@@ -17,15 +17,18 @@ public class ThrdPersonCam : MonoBehaviour
     private float currentX = 0;
     private float currentY = 25;
 
+    CharecterFly charecterFly;
+
     private void Start()
     {
+        charecterFly = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CharecterFly>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V) && !charecterFly.fly›)
         {
             FirstsPersonCam.SetActive(true);
             CursorI.SetActive(true);
