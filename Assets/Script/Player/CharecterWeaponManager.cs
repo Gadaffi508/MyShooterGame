@@ -11,6 +11,7 @@ public class CharecterWeaponManager : MonoBehaviour
     [SerializeField] private float handAttackLength;
     [SerializeField] private KeyCode SlowModKey;
     [SerializeField] private float SlowTimeScale;
+    [SerializeField] private LayerMask ForceObjectLayer;
 
     bool open;
     float startFixedTimeStep;
@@ -82,6 +83,12 @@ public class CharecterWeaponManager : MonoBehaviour
         //-----Right Hand
         rightHandLineRenderer.SetPosition(0, rightHand.position);
         rightHandLineRenderer.SetPosition(1, HandPos(rightHand));
+
+        RaycastHit hitýnfo;
+        if(Physics.Linecast(leftHand.position,HandPos(leftHand),out hitýnfo) && hitýnfo.collider != null)
+        {
+            hitýnfo.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 500000 * Time.deltaTime);
+        }
     }
 
     public void AfterAttack()
