@@ -2293,6 +2293,7 @@ MonoBehaviour:
   FlyInput: 102
   speed: 15
   ThirdPersonCam: {fileID: 963194225}
+  flying: 0
 --- !u!4 &922944786335082867
 Transform:
   m_ObjectHideFlags: 0

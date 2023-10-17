@@ -28,7 +28,7 @@ public class ThrdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V) && !charecterFly.fly›)
+        if (Input.GetKeyDown(KeyCode.V) && !charecterFly.flying)
         {
             FirstsPersonCam.SetActive(true);
             CursorI.SetActive(true);
