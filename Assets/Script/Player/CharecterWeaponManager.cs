@@ -13,19 +13,17 @@ public class CharecterWeaponManager : MonoBehaviour
     [SerializeField] private float SlowTimeScale;
     [SerializeField] private LayerMask ForceObjectLayer;
 
+    public bool Shooting;
+
     bool open;
     float startFixedTimeStep;
-    float standartspeed;
 
     Animator anim;
-    CharecterMovement charecterMovement;
 
     private void Start()
     {
         startFixedTimeStep = Time.fixedDeltaTime;
         anim = GetComponent<Animator>();
-        charecterMovement = GetComponent<CharecterMovement>();
-        standartspeed = charecterMovement.speed;
     }
 
     private void Update()
@@ -40,7 +38,7 @@ public class CharecterWeaponManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             anim.SetTrigger("MagicA");
-            charecterMovement.speed = 0;
+            Shooting = true;
         }
     }
 
@@ -52,7 +50,7 @@ public class CharecterWeaponManager : MonoBehaviour
 
     public void AttackAnimFunc()
     {
-        charecterMovement.speed = standartspeed;
+        Shooting = false;
     }
 
     private void OnDrawGizmos()

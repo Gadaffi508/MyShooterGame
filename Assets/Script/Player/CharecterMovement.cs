@@ -4,12 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CharecterMovement : CharecyerMove
 {
-    
+
     [SerializeField] private float SlowSpeed;
     [SerializeField] private float jumpforce;
 
     bool jump = false;
     float idleTime;
+    public bool run;
+    public bool slow;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -36,14 +38,14 @@ public class CharecterMovement : CharecyerMove
 
     private void SlowWalk()
     {
-        if (Input.GetKeyDown(KeyCode.C)) { anim.SetBool("Sspeed", true); speed = SlowSpeed; }
-        else if (Input.GetKeyUp(KeyCode.C)) { anim.SetBool("Sspeed", false); speed = 2f; }
+        if (Input.GetKeyDown(KeyCode.C)) { anim.SetBool("Sspeed", true); slow = true; }
+        else if (Input.GetKeyUp(KeyCode.C)) { anim.SetBool("Sspeed", false); slow = false; }
     }
 
     private void FastRun()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Shift", true); StartCoroutine(DelaySpeed(10,.2f)); }
-        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Shift", false); StartCoroutine(DelaySpeed(1.5f,.3f)); }
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { anim.SetBool("Shift", true); StartCoroutine(DelaySpeed(.2f, true)); }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) { anim.SetBool("Shift", false); StartCoroutine(DelaySpeed(.3f, false)); }
     }
 
     private void DancAnim()
@@ -56,10 +58,11 @@ public class CharecterMovement : CharecyerMove
         if (Input.GetKeyUp(KeyCode.Alpha3)) anim.SetBool("Dance", false);
     }
 
-    IEnumerator DelaySpeed(float _speed,float time)
+    IEnumerator DelaySpeed(float time, bool runS)
     {
         yield return new WaitForSeconds(time);
-        speed = _speed;
+        if (runS) run = true;
+        else run = false;
     }
 
     public override void ÝsUpdate()
@@ -80,5 +83,13 @@ public class CharecterMovement : CharecyerMove
     public override void ÝsStart()
     {
         rb.freezeRotation = true;
+    }
+
+    public override float SpeedVar()
+    {
+        if (run) speed = 10;
+        else if (slow) speed = .7f;
+        else speed = 2;
+        return speed;
     }
 }

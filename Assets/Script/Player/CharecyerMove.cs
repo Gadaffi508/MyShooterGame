@@ -5,6 +5,7 @@ public abstract class CharecyerMove : MonoBehaviour
     internal Rigidbody rb;
     internal Animator anim;
     internal Quaternion targetRotation;
+    internal CharecterWeaponManager weaponManager;
 
     public float X, Z;
     internal Vector3 movement;
@@ -13,16 +14,19 @@ public abstract class CharecyerMove : MonoBehaviour
     public float Fspeed;
     public GameObject ThirdPersonCam;
     public bool flying;
+    public bool Shooting;
 
     public bool Cam›sActive() => ThirdPersonCam.activeSelf;
 
     public abstract void ›sUpdate();
     public abstract void ›sStart();
+    public abstract float SpeedVar();
 
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        weaponManager = GetComponent<CharecterWeaponManager>();
 
         ›sStart();
     }
@@ -52,13 +56,14 @@ public abstract class CharecyerMove : MonoBehaviour
 
             rb.MoveRotation(targetRotation);
         }
-        if(!flying)
+
+        Shooting = weaponManager.Shooting;
+
+        if (!flying && !Shooting)
         {
-            rb.velocity = new Vector3(movement.normalized.x * speed, rb.velocity.y, movement.normalized.z * speed);
+            rb.velocity = new Vector3(movement.normalized.x * SpeedVar(), rb.velocity.y, movement.normalized.z * SpeedVar());
 
             if (Cam›sActive()) rb.MoveRotation(targetRotation);
         }
-
-        
     }
 }

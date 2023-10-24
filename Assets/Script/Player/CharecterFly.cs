@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharecterFly : CharecyerMove
 {
     [SerializeField] private KeyCode FlyInput;
-
-    CharecterWeaponManager weaponManager;
     CharecterMovement charecterMovement;
 
     private void Fly()
@@ -30,5 +26,13 @@ public class CharecterFly : CharecyerMove
     {
         weaponManager = GetComponent<CharecterWeaponManager>();
         charecterMovement = GetComponent<CharecterMovement>();
+    }
+
+    public override float SpeedVar()
+    {
+        if (charecterMovement.run) speed = 10;
+        else if (charecterMovement.slow) speed = .7f;
+        else speed = 2;
+        return speed;
     }
 }
