@@ -4,53 +4,48 @@ using UnityEngine;
 
 public class PlayerİnvisibleManager : MonoBehaviour
 {
-    [SerializeField] private SkinnedMeshRenderer Body_materyal;
-    [SerializeField] private SkinnedMeshRenderer Joint_materyal;
+    [SerializeField] private SkinnedMeshRenderer Body_Materyal;
+    [SerializeField] private SkinnedMeshRenderer Joint_Materyal;
     [SerializeField] private GameObject İnvisibleCam;
 
     bool İnvisibleTransition = false;
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            İnvisibleTransition =! İnvisibleTransition;
+            İnvisibleTransition = !İnvisibleTransition;
             İnvisibleCam.SetActive(İnvisibleTransition);
-            İnvisible(!İnvisibleTransition);
+            İnivisible(!İnvisibleTransition);
         }
 
-        if (İnvisibleTransition && İnvisibleCam != null) İnvisibleCam.transform.Rotate(new Vector3(0, 0, 60 * Time.deltaTime));
+        if (İnvisibleTransition) İnvisibleCam?.transform.Rotate(0,0,60 * Time.deltaTime);
     }
 
-    private void İnvisible(bool _İnvisibleTransition)
+    private void İnivisible(bool _invisibleTransition)
     {
         Shader shader = Shader.Find("Universal Render Pipeline/Lit");
 
-        // Shader ve materyal doğruysa devam ediyoruz
-        if (shader != null && Joint_materyal != null && Body_materyal != null && _İnvisibleTransition)
+        if (shader != null && Joint_Materyal != null && Body_Materyal != null && _invisibleTransition)
         {
-            // Shader'ı materyale atıyoruz
-            Joint_materyal.material.shader = shader;
-            Body_materyal.material.shader = shader;
+            Joint_Materyal.material.shader = shader;
+            Body_Materyal.material.shader = shader;
 
-            // Materyali tamamen transparan yapmak için gerekli ayarlamaları yapıyoruz
-            Joint_materyal.material.SetFloat("_Surface", 1); // Transparent surface type
-            Joint_materyal.material.SetFloat("_AlphaClip", 1); // Enable alpha clip (full transparency)
+            Joint_Materyal.material.SetFloat("_Surface",1);
+            Joint_Materyal.material.SetFloat("_AlphaClip",1);
 
-            Body_materyal.material.SetFloat("_Surface", 1); // Transparent surface type
-            Body_materyal.material.SetFloat("_AlphaClip", 1);
+            Body_Materyal.material.SetFloat("_Surface", 1);
+            Body_Materyal.material.SetFloat("_AlphaClip", 1);
         }
 
-        if (shader != null && Joint_materyal != null && Body_materyal != null && !_İnvisibleTransition)
+        if (shader != null && Joint_Materyal != null && Body_Materyal != null && !_invisibleTransition)
         {
-            // Shader'ı materyale atıyoruz
-            Joint_materyal.material.shader = shader;
-            Body_materyal.material.shader = shader;
+            Joint_Materyal.material.shader = shader;
+            Body_Materyal.material.shader = shader;
 
-            // Materyali tamamen transparan yapmak için gerekli ayarlamaları yapıyoruz
-            Joint_materyal.material.SetFloat("_Surface", 0); // Transparent surface type
+            Joint_Materyal.material.SetFloat("_Surface", 0);
 
-            Body_materyal.material.SetFloat("_Surface", 0); // Transparent surface type
+            Body_Materyal.material.SetFloat("_Surface", 0);
         }
     }
 }

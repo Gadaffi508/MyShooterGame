@@ -3507,8 +3507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2635fad50ec8dc24eb463f26f66153be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Body_materyal: {fileID: 1630794972183696183}
-  Joint_materyal: {fileID: 1971143601976081211}
+  Body_Materyal: {fileID: 1630794972183696183}
+  Joint_Materyal: {fileID: 1971143601976081211}
   "\u0130nvisibleCam": {fileID: 1358306802}
 --- !u!4 &922944786335082867
 Transform:
