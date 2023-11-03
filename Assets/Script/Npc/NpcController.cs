@@ -25,19 +25,26 @@ public class NpcController : MonoBehaviour
     private void Update()
     {
         time += Time.deltaTime;
-        if (WalkTime < time)
-        {
-            RandomWalk();
-            time = 0;
-        }
+        if (WalkTimeBool()) RandomWalk();
         
         anim.SetFloat("speed",agent.velocity.magnitude);
     }
 
-    private void RandomWalk()
+    private void RandomWalk() => agent.SetDestination(RandomPos());
+    
+    private float RandomValue() => Random.Range(0,30);
+    private Vector3 RandomPos() => new Vector3(RandomValue() ,transform.position.y,RandomValue() );
+
+    private bool WalkTimeBool()
     {
-        float randomValue = Random.Range(0,30);
-        Vector3 randomPos = new Vector3(randomValue,transform.position.y,randomValue);
-        agent.SetDestination(randomPos);
+        if (WalkTime < time)
+        {
+            time = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
