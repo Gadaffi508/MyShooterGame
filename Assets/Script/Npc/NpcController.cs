@@ -3,37 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
-    public Transform target;
-    public Transform Head;
-    public float maxRotate = 90f;
-    public float rotateSpeed;
+    public float WalkTime;
     
     private NavMeshAgent agent;
     private Animator anim;
+    private Rigidbody rb;
+
+    private float time;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        LookPlayer();
+        time += Time.deltaTime;
+        if (WalkTime < time)
+        {
+            RandomWalk();
+            time = 0;
+        }
+        
+        anim.SetFloat("speed",agent.velocity.magnitude);
     }
 
-    private void LookPlayer()
+    private void RandomWalk()
     {
-        if (CurrentRotateAngle() <= maxRotate) Head.rotation = HeadLook();
+        float randomValue = Random.Range(0,30);
+        Vector3 randomPos = new Vector3(randomValue,transform.position.y,randomValue);
+        agent.SetDestination(randomPos);
     }
-
-    private Vector3 TargetDirection() => target.position - Head.position;
-
-    private float CurrentRotateAngle() => Vector3.Angle(transform.forward, TargetDirection());
-    
-    private Quaternion TargetRotate() => Quaternion.LookRotation(TargetDirection());
-    private Quaternion HeadLook() => Quaternion.RotateTowards(Head.rotation, TargetRotate(), Time.deltaTime * rotateSpeed);
 }
