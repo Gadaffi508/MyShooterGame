@@ -82,10 +82,10 @@ public class CharecterWeaponManager : MonoBehaviour
         rightHandLineRenderer.SetPosition(0, rightHand.position);
         rightHandLineRenderer.SetPosition(1, HandPos(rightHand));
 
-        RaycastHit hitýnfo;
-        if(Physics.Linecast(leftHand.position,HandPos(leftHand),out hitýnfo) && hitýnfo.collider != null)
+        RaycastHit hitinfo;
+        if(Physics.Linecast(leftHand.position,HandPos(leftHand),out hitinfo) && hitinfo.collider != null)
         {
-            hitýnfo.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 500000 * Time.deltaTime);
+            hitinfo.collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 500000 * Time.deltaTime);
         }
     }
 
