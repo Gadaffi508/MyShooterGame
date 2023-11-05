@@ -7,55 +7,48 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
-    public float WalkTime;
-    
+    public Transform[] Paths;
+
+    private int index = 0;
     private NavMeshAgent agent;
     private Animator anim;
-    private Rigidbody rb;
-
-    private float time;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        time += Time.deltaTime;
-        if (WalkTimeBool())
-        {
-            StartCoroutine(RotateWalk());
-        }
-        
+        NpcPathFollow();
         anim.SetFloat("speed",agent.velocity.magnitude);
     }
 
-    private void RandomWalk() => agent.SetDestination(RandomPos());
-    
-    private float RandomValue() => Random.Range(0,30);
-    private Vector3 RandomPos() => new Vector3(RandomValue() ,transform.position.y,RandomValue());
-
-    private Quaternion ConvertPos() => Quaternion.Euler(RandomPos());
-
-    private bool WalkTimeBool()
+    private void NpcPathFollow()
     {
-        if (WalkTime < time)
+        if (NpcTurn())
         {
-            time = 0;
+            index++;
+        }
+        
+        
+        if (index == 4)
+        {
+            index = 0;
+        }
+        
+        agent.SetDestination(Paths[index].position);
+    }
+
+    private Vector3 PathCurrentPos() => new Vector3(Paths[index].position.x,transform.position.y,Paths[index].position.z);
+
+    private bool NpcTurn()
+    {
+        if (transform.position == PathCurrentPos())
+        {
             return true;
         }
         else return false;
     }
-
-    private IEnumerator RotateWalk()
-    {
-        transform.rotation = RotateNpcPos();
-        yield return new WaitForSeconds(1);
-        RandomWalk();
-    }
-
-    private Quaternion RotateNpcPos() => Quaternion.RotateTowards(transform.rotation,ConvertPos(),Time.deltaTime * 90);
 }
