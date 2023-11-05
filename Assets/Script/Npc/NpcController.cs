@@ -7,19 +7,19 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
-    public Transform[] Paths;
-
-    private int index = 0;
     private NavMeshAgent agent;
     private Animator anim;
+    private int index = 0;
 
+    public Transform[] paths;
+    
     private void Start()
     {
-        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         NpcPathFollow();
         anim.SetFloat("speed",agent.velocity.magnitude);
@@ -31,17 +31,16 @@ public class NpcController : MonoBehaviour
         {
             index++;
         }
-        
-        
-        if (index == 4)
+
+        if (index==4)
         {
             index = 0;
         }
-        
-        agent.SetDestination(Paths[index].position);
+
+        agent.SetDestination(paths[index].position);
     }
 
-    private Vector3 PathCurrentPos() => new Vector3(Paths[index].position.x,transform.position.y,Paths[index].position.z);
+    private Vector3 PathCurrentPos() => new Vector3(paths[index].position.x,transform.position.y,paths[index].position.z);
 
     private bool NpcTurn()
     {
