@@ -7,47 +7,25 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private Animator anim;
-    private int index = 0;
+    public GameObject TalkPressObj;
 
-    public Transform[] paths;
-    
+    private Animator anim;
+
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other) => TalkObjActive(other,true);
+
+    private void OnTriggerExit(Collider other) => TalkObjActive(other,false);
+
+    private void TalkObjActive(Collider other,bool Active)
     {
-        NpcPathFollow();
-        anim.SetFloat("speed",agent.velocity.magnitude);
-    }
-
-    private void NpcPathFollow()
-    {
-        if (NpcTurn())
+        if (other.gameObject.CompareTag("Player"))
         {
-            index++;
+            TalkPressObj.SetActive(Active);
+            if(Input.GetKeyDown(KeyCode.E)) anim.SetBool("Talk",Active);
         }
-
-        if (index==4)
-        {
-            index = 0;
-        }
-
-        agent.SetDestination(paths[index].position);
-    }
-
-    private Vector3 PathCurrentPos() => new Vector3(paths[index].position.x,transform.position.y,paths[index].position.z);
-
-    private bool NpcTurn()
-    {
-        if (transform.position == PathCurrentPos())
-        {
-            return true;
-        }
-        else return false;
     }
 }
