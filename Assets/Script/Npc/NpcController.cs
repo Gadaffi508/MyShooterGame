@@ -2,30 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
-    public GameObject TalkPressObj;
+    public GameObject TalkPressText;
+    public GameObject TalkSoundObj;
 
     private Animator anim;
+    private bool Contact;
+    private bool İsSpeaking;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && Contact) İsSpeaking = true;
+        if (!Contact) İsSpeaking = false;
+        
+        Speak(İsSpeaking);
+    }
+
     private void OnTriggerEnter(Collider other) => TalkObjActive(other,true);
 
     private void OnTriggerExit(Collider other) => TalkObjActive(other,false);
 
-    private void TalkObjActive(Collider other,bool Active)
+    private void TalkObjActive(Collider other, bool Active)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            TalkPressObj.SetActive(Active);
-            if(Input.GetKeyDown(KeyCode.E)) anim.SetBool("Talk",Active);
+            TalkPressText.SetActive(Active);
         }
+
+        Contact = Active;
+    }
+    private void Speak(bool _speak)
+    {
+        anim.SetBool("Talk",_speak);
+        TalkSoundObj.SetActive(_speak);
     }
 }
