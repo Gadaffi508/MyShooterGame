@@ -16,10 +16,10 @@ public abstract class CharecyerMove : MonoBehaviour
     public bool flying;
     public bool Shooting;
 
-    public bool Cam›sActive() => ThirdPersonCam.activeSelf;
+    public bool CamisActive() => ThirdPersonCam.activeSelf;
 
-    public abstract void ›sUpdate();
-    public abstract void ›sStart();
+    public abstract void isUpdate();
+    public abstract void isStart();
     public abstract float SpeedVar();
 
     public void Start()
@@ -28,7 +28,7 @@ public abstract class CharecyerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         weaponManager = GetComponent<CharecterWeaponManager>();
 
-        ›sStart();
+        isStart();
     }
 
     public void Update()
@@ -39,7 +39,7 @@ public abstract class CharecyerMove : MonoBehaviour
         movement = Camera.main.transform.forward * Z + Camera.main.transform.right * X;
         if (!flying) movement.y = 0;
 
-        ›sUpdate();
+        isUpdate();
     }
 
     public void FixedUpdate()
@@ -63,7 +63,7 @@ public abstract class CharecyerMove : MonoBehaviour
         {
             rb.velocity = new Vector3(movement.normalized.x * SpeedVar(), rb.velocity.y, movement.normalized.z * SpeedVar());
 
-            if (Cam›sActive()) rb.MoveRotation(targetRotation);
+            if (CamisActive()) rb.MoveRotation(targetRotation);
         }
     }
 }

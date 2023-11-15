@@ -11,18 +11,18 @@ public class CharecterFly : CharecyerMove
         if (flying) anim.SetTrigger("Fly");
 
         rb.useGravity = !flying;
-        anim.SetBool("FlyÝ", flying);
+        anim.SetBool("Flyï¿½", flying);
 
         weaponManager.enabled = !flying;
         charecterMovement.enabled = !flying;
     }
 
-    public override void ÝsUpdate()
+    public override void isUpdate()
     {
         if (Input.GetKeyDown(FlyInput)) Fly();
     }
 
-    public override void ÝsStart()
+    public override void isStart()
     {
         weaponManager = GetComponent<CharecterWeaponManager>();
         charecterMovement = GetComponent<CharecterMovement>();

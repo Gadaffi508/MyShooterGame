@@ -10,12 +10,16 @@ public class PlayerArrowController : MonoBehaviour
     public float jumpDelay;
     
     private Rigidbody rb;
+    private Animator anim;
     private float X, Y;
     private bool jump = true;
+    private Vector3 movement;
+    private Quaternion targetRotation;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -28,17 +32,29 @@ public class PlayerArrowController : MonoBehaviour
             rb.AddForce(transform.up * jumpForce);
             jump = false;
         }
+        
+        movement = Camera.main.transform.forward * Y + Camera.main.transform.right * X;
+        
+        anim.SetFloat("speed",Math.Abs(rb.velocity.x+rb.velocity.z));
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) anim.SetTrigger("SPress");
     }
 
     private void FixedUpdate()
     {
+        if(movement != Vector3.zero) targetRotation = Quaternion.LookRotation(movement);
+
+        targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
+        
+        rb.MoveRotation(targetRotation);
+        
         rb.velocity = new Vector3(X * Time.deltaTime * speed,rb.velocity.y,Y*Time.deltaTime * speed);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
-        {1
+        {
             StartCoroutine(delaySpace());
         }
     }

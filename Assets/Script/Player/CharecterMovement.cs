@@ -65,7 +65,7 @@ public class CharecterMovement : CharecyerMove
         else run = false;
     }
 
-    public override void ÝsUpdate()
+    public override void isUpdate()
     {
         DancAnim();
 
@@ -80,7 +80,7 @@ public class CharecterMovement : CharecyerMove
         FastRun();
     }
 
-    public override void ÝsStart()
+    public override void isStart()
     {
         rb.freezeRotation = true;
     }
