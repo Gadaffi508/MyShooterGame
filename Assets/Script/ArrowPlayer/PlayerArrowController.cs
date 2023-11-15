@@ -34,10 +34,7 @@ public class PlayerArrowController : MonoBehaviour
         }
         
         movement = Camera.main.transform.forward * Y + Camera.main.transform.right * X;
-        
-        anim.SetFloat("speed",Math.Abs(rb.velocity.x+rb.velocity.z));
-
-        if (Input.GetKeyDown(KeyCode.LeftShift)) anim.SetTrigger("SPress");
+        movement.y = 0;
     }
 
     private void FixedUpdate()
@@ -48,7 +45,7 @@ public class PlayerArrowController : MonoBehaviour
         
         rb.MoveRotation(targetRotation);
         
-        rb.velocity = new Vector3(X * Time.deltaTime * speed,rb.velocity.y,Y*Time.deltaTime * speed);
+        rb.velocity = new Vector3(movement.normalized.x * Time.deltaTime * speed,rb.velocity.y,movement.normalized.z*Time.deltaTime * speed);
     }
 
     private void OnCollisionEnter(Collision other)
