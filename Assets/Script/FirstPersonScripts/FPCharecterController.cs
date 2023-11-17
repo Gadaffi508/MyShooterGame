@@ -5,44 +5,46 @@ using UnityEngine;
 
 public class FPCharecterController : MonoBehaviour
 {
-    public float _speed;
+    public float _Speed = 12f;
     public float jumpForce;
+    public float gravity = -9.81f;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
     
-    private Rigidbody rb;
-    private float X, Y;
+    private Vector3 velocity;
+    private CharacterController controller;
+    private bool İsGrounded;
 
-    private bool jump;
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
+    private void Update()
+    {
+        İsGrounded = GroundBool();
+        
+        if (GroundAır()) velocity.y = -2f;
+
+        if (JumpPorperty()) velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+        
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        controller.Move(MoveVelocity(x,y) * Time.deltaTime * _Speed);
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    private bool GroundBool() => Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+    private bool GroundAır() => İsGrounded && velocity.y < 0;
+
+    private bool JumpPorperty() => Input.GetKeyDown(KeyCode.Space) && İsGrounded;
     
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        X = Input.GetAxis("Horizontal");
-        Y = Input.GetAxis("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space) && jump)
-        {
-            rb.AddForce(Vector3.up* jumpForce * Time.deltaTime);
-            jump = false;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        rb.velocity = MoveVelocity();
-    }
-
-    private void OnCollisionStay(Collision other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            jump = true;
-        }
-    }
-
-    private Vector3 MoveVelocity() => new Vector3(X * Time.deltaTime * _speed,rb.velocity.y,Y * Time.deltaTime * _speed);
+    private Vector3 MoveVelocity(float x, float y) => transform.right * x + transform.forward * y;
 }
