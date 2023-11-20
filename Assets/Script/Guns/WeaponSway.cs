@@ -30,6 +30,7 @@ public class WeaponSway : MonoBehaviour
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotaion, smooth * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.F)) anim.SetTrigger("RotateG");
-        if (Input.GetKeyDown(KeyCode.G)) anim.SetTrigger("RotateH");
+        if (Input.GetKeyDown(KeyCode.H)) anim.SetTrigger("RotateH");
+        if (Input.GetKeyDown(KeyCode.G)) anim.SetTrigger("LookG");
     }
 }
