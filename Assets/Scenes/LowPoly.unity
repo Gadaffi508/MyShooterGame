@@ -452,7 +452,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0.088}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 571679391}
   m_Father: {fileID: 1272290334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -468,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25388ed18ba5d904aac319aec1097a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensivity: 100
+  mouseSensivity: 500
   player: {fileID: 1272290334}
 --- !u!1 &540979050
 GameObject:
@@ -571,6 +572,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &571679390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 571679391}
+  - component: {fileID: 571679392}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &571679391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571679390}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.436, y: -0.14600003, z: 1.102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4972878058972710156}
+  m_Father: {fileID: 340011340}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &571679392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571679390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba6e9a44db82e04baa02c581393e694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 10
+  swayMultiplier: 5
 --- !u!1 &652478019
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +726,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1272290334}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044216235
 GameObject:
@@ -789,7 +837,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 340011340}
-  - {fileID: 4972878058972710156}
   - {fileID: 928597376}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -890,12 +937,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5641012055853457334}
   m_LocalRotation: {x: -0.000000030908623, y: -0.7071068, z: -0.7071068, w: 0.000000030908623}
-  m_LocalPosition: {x: 0.436, y: 0.354, z: 1.19}
-  m_LocalScale: {x: 6, y: 27.535084, z: 4.9739666}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 27.5351, z: 4.9739676}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1272290334}
-  m_RootOrder: 1
+  m_Father: {fileID: 571679391}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5641012055853457334
 GameObject:
@@ -908,6 +955,7 @@ GameObject:
   - component: {fileID: 4972878058972710156}
   - component: {fileID: 8263240730959940265}
   - component: {fileID: 6145191257640074851}
+  - component: {fileID: 8263240730959940266}
   m_Layer: 0
   m_Name: Guns
   m_TagString: Untagged
@@ -967,3 +1015,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5641012055853457334}
   m_Mesh: {fileID: -5495902117074765545, guid: 8643204cd856430469199c5c062be8f4, type: 3}
+--- !u!95 &8263240730959940266
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5641012055853457334}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30ddac335dd949441b3be38918274112, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
