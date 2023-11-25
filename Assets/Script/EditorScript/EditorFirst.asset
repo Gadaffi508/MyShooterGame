@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Yusuf
   _changeToDropItem: 10
-  _rangeOfAwarenees: 5
+  _rangeOfAwarenees: 3
   _editorType: 1
