@@ -8,7 +8,6 @@ public class NpcManager : MonoBehaviour
 {
     [SerializeField] private Transform ShopPos;
     [SerializeField] private Transform EndPos;
-    [SerializeField] private int talkTime;
 
     private Animator anim;
     private NavMeshAgent agent;
@@ -17,25 +16,27 @@ public class NpcManager : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        ShopPos = GameObject.FindGameObjectWithTag("Shop").transform;
+        EndPos = GameObject.FindGameObjectWithTag("End").transform;
         
         agent.SetDestination(ShopPos.position);
     }
 
     private void Update()
     {
-
-        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
-        {
-            anim.SetBool("Talk",true);
-            StartCoroutine(ExitWalk());
-        }
+        if (NpcComeShop()) anim.SetBool("Talk",true);
+        
         anim.SetFloat("speed",agent.velocity.magnitude);
+        
+        if(NpcComeShop() && Input.GetKeyDown(KeyCode.E)) ExitWalk();
     }
 
-    IEnumerator ExitWalk()
+    private void ExitWalk()
     {
-        yield return new WaitForSeconds(talkTime);
         anim.SetBool("Talk",false);
         agent.SetDestination(EndPos.position);
     }
+
+    private bool NpcComeShop() => agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending;
 }

@@ -27,7 +27,7 @@ public class FrstPersonCam : MonoBehaviour
         float InputY = Input.GetAxis("Mouse Y") * mouseSensivity * Time.deltaTime;
 
         cameraVerticalRotation -= InputY;
-        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -60f,80f);
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -60,80f);
         transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 
         Player.Rotate(Vector3.up * InputX);

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Terrain
+  - Shop
+  - End
   layers:
   - Default
   - TransparentFX
