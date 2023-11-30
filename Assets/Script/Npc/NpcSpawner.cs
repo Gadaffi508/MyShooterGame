@@ -8,19 +8,12 @@ public class NpcSpawner : MonoBehaviour
 {
     public GameObject[] NpcObjs;
     public Transform StartPos;
-    public float SpawnTime;
-    
-    private float SpawnTimer;
 
-    private void Update()
+    private void Start() => SpawnNpc();
+
+    public void SpawnNpc()
     {
-        SpawnTimer += Time.deltaTime;
-
-        if (SpawnTimer > SpawnTime)
-        {
-            int random = Random.Range(0, NpcObjs.Length);
-            Instantiate(NpcObjs[random], StartPos.position, StartPos.rotation);
-            SpawnTimer = 0;
-        }
+        int random = Random.Range(0, NpcObjs.Length);
+        Instantiate(NpcObjs[random], StartPos.position, StartPos.rotation);
     }
 }

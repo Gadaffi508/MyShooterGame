@@ -20,11 +20,16 @@ public class ShopCamera : MonoBehaviour
         float InputX = Input.GetAxis("Mouse X") * mouseSensivity * Time.deltaTime;
         float InputY = Input.GetAxis("Mouse Y") * mouseSensivity * Time.deltaTime;
 
+        transform.localEulerAngles = ToAngles(InputY);
+        
+        CamPosY.Rotate(Vector3.up * InputX);
+    }
+
+    private Vector3 ToAngles(float InputY)
+    {
         cameraVerticalRotation -= InputY;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, 0f,15f);
         Vector3 horY = Vector3.right * cameraVerticalRotation;
-        transform.localEulerAngles = new Vector3(horY.magnitude,180,0);
-        
-        CamPosY.Rotate(Vector3.up * InputX);
+        return horY;
     }
 }

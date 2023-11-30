@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 761880456}
   m_Layer: 0
   m_Name: NpcManager
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -830,7 +830,6 @@ MonoBehaviour:
   - {fileID: 7119806404170935079, guid: 3e05561f89642f14c9f74af35fc56bc2, type: 3}
   - {fileID: 8311677538056897849, guid: 5ab1ed02d7f1a4b49b754df65f3738b1, type: 3}
   StartPos: {fileID: 761880457}
-  SpawnTime: 5
 --- !u!4 &761880457
 Transform:
   m_ObjectHideFlags: 0

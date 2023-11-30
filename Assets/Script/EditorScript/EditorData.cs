@@ -15,8 +15,16 @@ public class EditorData : ScriptableObject
 
     [SerializeField] private EditorType _editorType = EditorType.None;
 
+    [SerializeField] private float _Health;
+    [SerializeField] private float _Damage;
+    [SerializeField] private float _Speed;
+
     public string Name => _name;
     public float ChangeToDropItem => _changeToDropItem;
     public float RangeOfAwarenees => _rangeOfAwarenees;
     public EditorType EditorType => _editorType;
+
+    public float Health => _Health;
+    public float Damage => _Damage;
+    public float Speed => _Speed;
 }

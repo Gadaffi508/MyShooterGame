@@ -16,3 +16,6 @@ MonoBehaviour:
   _changeToDropItem: 10
   _rangeOfAwarenees: 3
   _editorType: 1
+  _Health: 3
+  _Damage: 3
+  _Speed: 3
