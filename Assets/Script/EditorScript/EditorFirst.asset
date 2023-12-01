@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abbbef7a85d27d4883bb1f971303ebd, type: 3}
   m_Name: EditorFirst
   m_EditorClassIdentifier: 
-  _name: Yusuf
+  _name: Name
   _changeToDropItem: 10
   _rangeOfAwarenees: 3
   _editorType: 1

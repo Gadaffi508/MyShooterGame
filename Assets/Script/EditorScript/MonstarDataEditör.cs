@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,17 @@ using UnityEditor;
 [CustomEditor(typeof(EditorData))]
 public class MonstarDataEditör : Editor
 {
+    private SerializedProperty _Health;
+    private SerializedProperty _Damage;
+    private SerializedProperty _Speed;
+
+    private void OnEnable()
+    {
+        _Health = serializedObject.FindProperty("_Health");
+        _Damage = serializedObject.FindProperty("_Damage");
+        _Speed = serializedObject.FindProperty("_Speed");
+    }
+
     public override void OnInspectorGUI()
     {
         EditorData data = (EditorData)target;
@@ -22,6 +34,16 @@ public class MonstarDataEditör : Editor
         base.OnInspectorGUI();
         //add after
         EditorGUILayout.LabelField("- - - - - - - -");
+
+        if (data.Name == string.Empty)
+        {
+            EditorGUILayout.HelpBox("Caution : No name specified. Please name the monster!",MessageType.Warning);
+        }
+        
+        if (data.EditorType == EditorType.None)
+        {
+            EditorGUILayout.HelpBox("No MonsterType selected",MessageType.Warning);
+        }
     }
 
     void ProgressBar(float value, string label)

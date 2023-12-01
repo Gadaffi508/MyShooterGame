@@ -13,6 +13,8 @@ public class EditorData : ScriptableObject
     [SerializeField] [Tooltip("Radius size where monster will see the player")]
     private float _rangeOfAwarenees;
 
+    [SerializeField] private bool _canEnterCombat = true;
+
     [SerializeField] private EditorType _editorType = EditorType.None;
 
     [SerializeField] private float _Health;
@@ -22,6 +24,7 @@ public class EditorData : ScriptableObject
     public string Name => _name;
     public float ChangeToDropItem => _changeToDropItem;
     public float RangeOfAwarenees => _rangeOfAwarenees;
+    public bool CanEnterCombat => _canEnterCombat;
     public EditorType EditorType => _editorType;
 
     public float Health => _Health;
