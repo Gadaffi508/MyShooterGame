@@ -30,4 +30,5 @@ public class EditorData : ScriptableObject
     public float Health => _Health;
     public float Damage => _Damage;
     public float Speed => _Speed;
+    public float MapLength;
 }

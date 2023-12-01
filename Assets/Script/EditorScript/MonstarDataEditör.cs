@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 [CustomEditor(typeof(EditorData))]
 public class MonstarDataEditör : Editor
@@ -29,6 +30,15 @@ public class MonstarDataEditör : Editor
         //difficulty bar
         float difficulty = data.Health + data.Damage + data.Speed;
         ProgressBar(difficulty / 100,"Difficulty");
+
+        if (GUILayout.Button("Random stats"))
+        {
+            RandomStats(data);
+        }
+
+        //EditorGUILayout.BeginHorizontal();
+        //EditorGUILayout.labelWidth();    
+        //EditorGUILayout.EndHorizontal();    
         
         //add before
         base.OnInspectorGUI();
@@ -51,5 +61,10 @@ public class MonstarDataEditör : Editor
         Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
         EditorGUI.ProgressBar(rect,value,label);
         EditorGUILayout.Space(10);
+    }
+
+    void RandomStats(EditorData data)
+    {
+        data.MapLength = Random.Range(1,50);
     }
 }
