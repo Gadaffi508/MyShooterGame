@@ -14,6 +14,7 @@ public class NpcSpawner : MonoBehaviour
     public void SpawnNpc()
     {
         int random = Random.Range(0, NpcObjs.Length);
+
         Instantiate(NpcObjs[random], StartPos.position, StartPos.rotation);
     }
 }

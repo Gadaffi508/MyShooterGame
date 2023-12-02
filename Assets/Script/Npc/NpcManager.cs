@@ -6,48 +6,51 @@ using UnityEngine.AI;
 
 public class NpcManager : MonoBehaviour
 {
-    [SerializeField] private Transform ShopPos;
-    [SerializeField] private Transform EndPos;
+    private Transform ShopPos;
+    private Transform EndPos;
 
     private Animator anim;
     private NavMeshAgent agent;
     private NpcSpawner _spawner;
-    private bool spawnOne = true;
+
+    private bool NpcController = true;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
 
         ShopPos = GameObject.FindGameObjectWithTag("Shop").transform;
         EndPos = GameObject.FindGameObjectWithTag("End").transform;
-        
-        agent.SetDestination(ShopPos.position);
 
+        agent.SetDestination(ShopPos.position);
+        
         _spawner = GameObject.FindGameObjectWithTag("Spawner").gameObject.GetComponent<NpcSpawner>();
     }
 
     private void Update()
     {
-        if (NpcComeShop()) anim.SetBool("Talk",true);
+        if (NpcİsComeShop()) anim.SetBool("Talk",true);
         
         anim.SetFloat("speed",agent.velocity.magnitude);
+
+        if (NpcİsComeShop() && Input.GetKeyDown(KeyCode.E)) ExitWalk();
         
-        if(NpcComeShop() && Input.GetKeyDown(KeyCode.E)) ExitWalk();
-        
-        if(NpcComeShop() && spawnOne == false) Destroy(gameObject,1f);
+        if(NpcİsComeShop() && NpcController == false) Destroy(gameObject,1f);
     }
 
     private void ExitWalk()
     {
         anim.SetBool("Talk",false);
-        if (spawnOne)
+
+        if (NpcController)
         {
             _spawner.SpawnNpc();
-            spawnOne = false;
+            NpcController = false;
         }
+        
         agent.SetDestination(EndPos.position);
     }
-
-    private bool NpcComeShop() => agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending;
+    
+    private bool NpcİsComeShop() => agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending;
 }
