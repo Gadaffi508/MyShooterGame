@@ -21,6 +21,9 @@ public class EditorData : ScriptableObject
     [SerializeField] private float _Damage;
     [SerializeField] private float _Speed;
 
+    [SerializeField]
+    private EditorAbility[] _abilities;
+
     public string Name => _name;
     public float ChangeToDropItem => _changeToDropItem;
     public float RangeOfAwarenees => _rangeOfAwarenees;
@@ -31,4 +34,6 @@ public class EditorData : ScriptableObject
     public float Damage => _Damage;
     public float Speed => _Speed;
     public float MapLength;
+
+    public EditorAbility[] Abilities => _abilities;
 }

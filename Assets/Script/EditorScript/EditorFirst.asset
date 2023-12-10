@@ -17,7 +17,17 @@ MonoBehaviour:
   _rangeOfAwarenees: 3
   _canEnterCombat: 0
   _editorType: 1
-  _Health: 3
-  _Damage: 3
-  _Speed: 3
-  MapLength: 12
+  _Health: 4.18
+  _Damage: 4.64
+  _Speed: 3.78
+  _abilities:
+  - name: Yusuf
+    _damage: 5
+    _type: 1
+  - name: Yusuf
+    _damage: 5
+    _type: 1
+  - name: Yusuf
+    _damage: 5
+    _type: 1
+  MapLength: 41

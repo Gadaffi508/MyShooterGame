@@ -11,12 +11,15 @@ public class MonstarDataEditör : Editor
     private SerializedProperty _Health;
     private SerializedProperty _Damage;
     private SerializedProperty _Speed;
+    private SerializedProperty _abilities;
 
     private void OnEnable()
     {
         _Health = serializedObject.FindProperty("_Health");
         _Damage = serializedObject.FindProperty("_Damage");
         _Speed = serializedObject.FindProperty("_Speed");
+
+        _abilities = serializedObject.FindProperty("_abilities");
     }
 
     public override void OnInspectorGUI()
