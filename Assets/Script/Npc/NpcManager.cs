@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class NpcManager : MonoBehaviour
 {
+    public GameObject Sound;
+
     private Transform ShopPos;
     private Transform EndPos;
 
@@ -30,7 +32,11 @@ public class NpcManager : MonoBehaviour
 
     private void Update()
     {
-        if (NpcİsComeShop()) anim.SetBool("Talk",true);
+        if (NpcİsComeShop() && NpcController==true)
+        {
+            anim.SetBool("Talk", true);
+            Sound.SetActive(true);
+        }
         
         anim.SetFloat("speed",agent.velocity.magnitude);
 
@@ -42,6 +48,7 @@ public class NpcManager : MonoBehaviour
     private void ExitWalk()
     {
         anim.SetBool("Talk",false);
+        Sound.SetActive(false);
 
         if (NpcController)
         {
